@@ -1,0 +1,99 @@
+void main() {
+  //tambahkan _ utk private
+  // hanya dapat diakses di kelas itu sendiri
+  //extends hanya bisa sekali
+ 
+  //Inisiasi objek
+//   var mobil1 = Mobil('Toyota', 'Camry', 2022);
+//   var mobil2 = Mobil('Honda', 'Civic', 2021);
+ 
+  //Pemanggilan objek
+//   mobil1.infoMobil();
+//   mobil2.infoMobil();
+ 
+  //Inisiasi objek
+  var mobil1 = Mobil('Toyota', 2022, 4);
+ 
+  mobil1.infoMobil();
+  mobil1.infoKendaraan();
+}
+class Kendaraan {
+    // Property
+    String merek;
+    int tahunProduksi;
+   
+    // Constructor
+    Kendaraan (this.merek, this.tahunProduksi);
+   
+    // Method
+    void infoKendaraan() {
+      print('$merek, Tahun : $tahunProduksi');
+    }
+  }
+
+ class Mobil extends Kendaraan {
+   // Property
+   int jumlahPintu;
+   
+   // Constructor
+   // Karna propertinya ada di kelas kendaraan maka parameter ditulis
+   // dan gunakan super
+   Mobil(String merk, int tahunProduksi, this.jumlahPintu)
+     : super(merk, tahunProduksi);
+
+   
+   // Method
+   void infoMobil() {
+     print('Mobil $merek, Tahun : $tahunProduksi, Pintu : $jumlahPintu ');
+   }
+ }
+
+=======================================================
+//Implicit Interface
+//Poliformisme harus pakai override
+
+class Flyable {
+  void fly() {}
+}
+
+class Animal {
+  String name = '';
+  int age =0;
+  double weight = 0;
+ 
+  //Constructor
+   Animal (this.name, this.age, this.weight);
+ 
+  //Method
+  void eat() {
+    print ( '$name is eating.');
+    weight = weight + 0.2;
+  }
+  void sleep() {
+    print ( '$name is sleeping. ');
+  }
+}
+
+class Bird extends Animal implements Flyable {
+  String featherColor;
+ 
+  Bird(String name, int age, double weight, this.featherColor)
+    : super(name, age, weight);
+
+// Polymorphisme
+// Kalau tidak pakai override dia dianggap method baru
+@override
+void fly() {
+  print('$name is flying');
+  }
+}
+
+void main() {
+  var mdpBird = Bird('Gagak', 2, 0.7, 'Pink');
+ 
+  mdpBird.fly();
+  print('Berat Burung : ${mdpBird.weight}');
+  mdpBird.eat();
+  print('Berat Burung Sekarang : ${mdpBird.weight}');
+  mdpBird.sleep();
+}

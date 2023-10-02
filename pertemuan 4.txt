@@ -1,0 +1,65 @@
+void main() {
+  final myFuture = Future(() {  //Uncompleted
+    print('Creating the future');
+    return 12;
+  }).then((value) {           //Completed with data
+    print(value);
+  }).catchError((error) {     //Completed with error
+    print('error $error');
+  });
+ 
+  // utk mendapat nilai return (completed data)harus pakai method then
+  // utk mendapat nilai return (error) harus pakai catch
+ 
+ 
+  print('main() done');
+ 
+  getOrder().then((value) {       //Completed w data
+    print('You ordered : $value');
+  }).catchError((error) {         //Completed w error
+    print('error $error');
+  }).whenComplete((){             //finally, selalu di cetak
+    print('Thank you');
+  });
+  print('Getting your order. . .');
+ 
+}
+
+//seconds = lama durasinya
+Future<String> getOrder() {
+  return Future.delayed(Duration(seconds: 3), (){
+    var isStockAvailable = false;
+    if(isStockAvailable) {
+    return "Coffee Boba";
+    }else {
+    throw 'Out of Order';
+  }
+  });
+}
+============================================================
+void main() async {
+  //Kalau gk ada future pakai await
+  //kalau gk pakai async await, ordernya gk akan muncul
+ 
+  print('Getting your order. . . ');
+  var order = await getOrder();
+  try {
+    print('Your Order : $order');     //complete w data
+   }catch (error) {
+    print('error $error');            //complete w error
+  }finally {                          
+    print('Thank You');               //kalau error, finally tidak akan di cetak
+  }
+}
+
+
+Future<String> getOrder() {
+  return Future.delayed(Duration(seconds: 3), (){
+    var isStockAvailable = false;
+    if(isStockAvailable) {
+    return "Coffee Boba";
+    }else {
+    throw 'Out of Order';
+  }
+  });
+}
